@@ -37,7 +37,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
         progressBar=findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
-        progressBar.getIndeterminateDrawable().setColorFilter(Color.BLACK, android.graphics.PorterDuff.Mode.SRC_IN);
+        progressBar.getIndeterminateDrawable().setColorFilter(Color.RED, android.graphics.PorterDuff.Mode.SRC_IN);
         sound=MediaPlayer.create(Game.this,R.raw.sound);
     }
 
@@ -49,10 +49,12 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
     private void countDownStarter(){
         if(!timeHasStarted){
+            startGame.setText("STOP");
             progressBar.setVisibility(View.VISIBLE);
             timer.start();
             sound.start();
             timeHasStarted = true;
+
         }
         else{
             timeHasStarted = false;
@@ -76,16 +78,24 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         @Override
         public void onFinish() {
             timeTextView.setText("GAME OVER");
+            gameOver(String.valueOf(timeTextView.getText()));
         }
 
         private void update() {
             int sec = (int) startTime % 60000 / 1000;
             String timeLeftText;
-            timeLeftText = "00 : 0"+sec + " : " + startTime % 1000/10;
+            timeLeftText = "0"+ sec + " : " + startTime % 1000/10;
             if (sec < 2)
                 timeTextView.setVisibility(View.GONE);
             timeTextView.setText(timeLeftText);
         }
+    }
+
+    void gameOver(String time){
+        sound.release();
+        Intent intent = new Intent(getApplicationContext(), Result.class);
+        intent.putExtra("SCORE",time);
+        startActivity(intent);
     }
 }
 
