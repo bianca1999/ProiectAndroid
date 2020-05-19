@@ -33,7 +33,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
         timeTextView=findViewById(R.id.seconds);
         timer=new Timer(startTime,intervale);
-        timer.update();
+        ((Timer)timer).update();
 
         progressBar=findViewById(R.id.progressBar);
         progressBar.setVisibility(View.GONE);
@@ -58,9 +58,10 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         }
         else{
             timeHasStarted = false;
+            progressBar.setVisibility(View.GONE);
             timer.cancel();
             sound.release();
-
+            gameOver(String.valueOf(timeTextView.getText()));
         }
     }
 
@@ -77,14 +78,14 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
         @Override
         public void onFinish() {
-            timeTextView.setText("GAME OVER");
+            timeTextView.setText("Time's up!");
             gameOver(String.valueOf(timeTextView.getText()));
         }
 
         private void update() {
             int sec = (int) startTime % 60000 / 1000;
             String timeLeftText;
-            timeLeftText = "0"+ sec + " : " + startTime % 1000/10;
+            timeLeftText ="0"+ sec + " : " + startTime % 1000/10;
             if (sec < 2)
                 timeTextView.setVisibility(View.GONE);
             timeTextView.setText(timeLeftText);
@@ -97,5 +98,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
         intent.putExtra("SCORE",time);
         startActivity(intent);
     }
+
+
 }
 
