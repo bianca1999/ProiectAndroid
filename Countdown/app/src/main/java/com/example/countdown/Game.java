@@ -84,8 +84,7 @@ public class Game extends AppCompatActivity implements View.OnClickListener{
 
         private void update() {
             int sec = (int) startTime % 60000 / 1000;
-            String timeLeftText;
-            timeLeftText ="0"+ sec + " : " + startTime % 1000/10;
+            String timeLeftText = "0" + sec + " : " + startTime % 1000 / 10;
             if (sec < 2)
                 timeTextView.setVisibility(View.GONE);
             timeTextView.setText(timeLeftText);
