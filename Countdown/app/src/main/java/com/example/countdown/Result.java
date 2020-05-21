@@ -11,12 +11,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class Result extends AppCompatActivity implements View.OnClickListener{
     private TextView scoreView;
     String time;
+    private ImageView whapp, gmail;
     private Button tryAgain, menu, save;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +29,14 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
         tryAgain = findViewById(R.id.tryAgain);
         menu = findViewById(R.id.menu);
         save = findViewById(R.id.save);
+        gmail=findViewById(R.id.gmail);
+        whapp=findViewById(R.id.whapp);
 
         tryAgain.setOnClickListener(this);
         menu.setOnClickListener(this);
         save.setOnClickListener(this);
+        gmail.setOnClickListener(this);
+        whapp.setOnClickListener(this);
 
         Intent i = getIntent();
         time = i.getStringExtra("SCORE");
@@ -76,6 +82,16 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
                 break;
             case R.id.save:
                 userScore();
+                break;
+            case R.id.gmail:
+                String message="This is my score at Countdoun - " + String.valueOf(time)+"! Can you beat it?";
+                Intent email= new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_TEXT,message);
+                email.putExtra(Intent.EXTRA_SUBJECT,"");
+                email.setType("message/rfc822");
+                startActivity(email.createChooser(email,"Choose an email adress!"));
+                break;
+            case R.id.whapp:
                 break;
             default:
                 break;
