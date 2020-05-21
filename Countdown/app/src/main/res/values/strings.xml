@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Countdown</string>
     <string name="start">Start</string>
+    <string name="share">Share your score with a friend!</string>
 </resources>
