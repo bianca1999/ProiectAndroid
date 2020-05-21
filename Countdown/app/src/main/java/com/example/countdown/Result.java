@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
@@ -92,6 +94,12 @@ public class Result extends AppCompatActivity implements View.OnClickListener{
                 startActivity(email.createChooser(email,"Choose an email adress!"));
                 break;
             case R.id.whapp:
+                String text="This is my score at Countdoun - " + String.valueOf(time)+"! Can you beat it?";
+                Intent whapp = new Intent(Intent.ACTION_SEND);
+                whapp.setType("text/plain");
+                whapp.setPackage("com.whatsapp");
+                whapp.putExtra(Intent.EXTRA_TEXT, text);
+                startActivity(Intent.createChooser(whapp, "Share with"));
                 break;
             default:
                 break;
